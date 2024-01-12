@@ -1,4 +1,23 @@
 import discord
-from discord.ext import commands
 
-BOT_TOKEN = "MTE3NDkyODIyNDIyOTI2NTQwOA.GRGlMI.oR_QVbfHBxkuleC2mvp5oZmWQqG67IMr-7xle0"
+TOKEN = "put token here"
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = discord.Client(intents=intents)
+
+@client.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(client))
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.content.startswith('$hello'):
+        await message.channel.send('Hello!')
+
+client.run()
+
